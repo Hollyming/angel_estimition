@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-# import time
+import time
 import math
 import platform
 import tkinter as tk
@@ -9,8 +9,8 @@ from PIL import Image, ImageTk
 from openpose import pyopenpose as op
 
 # 常量定义
-IMAGE_PATH_SHOW_1 = "./img/show_1.png"
-IMAGE_PATH_SHOW_2 = "./img/show_2.png"
+IMAGE_PATH_SHOW_1 = "./img/shoulder_shen_1.png"
+IMAGE_PATH_SHOW_2 = "./img/shoulder_shen_2.png"
 CAMERA_INDEX = 0 # 默认使用第一个摄像头
 FPS = 30
 MODEL_FOLDER = "openpose/models/"
@@ -123,8 +123,8 @@ def update_ui():
     opWrapper.emplaceAndPop(op.VectorDatum([datum]))
 
     # 绘制骨架和角度
-    if datum.poseKeypoints is not None:
-        for i in range(datum.poseKeypoints.shape[0]):
+    if datum.poseKeypoints is not None:# 如果检测到人体
+        for i in range(datum.poseKeypoints.shape[0]):# 遍历每个人体
             skel = datum.poseKeypoints[i, :25, :2].astype(np.int32)  # 使用25个关键点
             vis_output = draw_from_numpy(vis_output, skel)
 
