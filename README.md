@@ -27,6 +27,8 @@ The angles are calculated using basic geometric principles, specifically using t
 - **Body Skeleton Visualization**: Displays the human body's skeleton, showing the position of keypoints and the bones connecting them.
 - **Multiple Joint Support**: Measures angles for multiple joints, including shoulders, elbows, knees, and ankles.
 - **Webcam Compatibility**: Works with any standard webcam for real-time video input.
+- **Medical Testing**: Includes scripts for medical testing, such as checking if a person's arm can extend backward to a certain angle.
+- **Multiple Projects**: Supports different projects for various medical tests, including single and multi-project tests.
 
 ## Installation
 
@@ -64,37 +66,69 @@ Once OpenPose is installed, ensure the following:
 
 This project uses a webcam to capture video. Ensure your webcam is correctly connected and functional. You can change the `cam_idx` parameter in the code if you are using a different camera.
 
+### Step 5: Python Version Compatibility
+
+This project has been tested and works with **Python 3.9**. Compatibility with other Python versions has not been fully tested, so users with other versions should proceed with caution or consider using a virtual environment with Python 3.9.
+
 ## Usage
 
-Once the setup is complete, you can run the script to start the angle measurement system:
+Once the setup is complete, you can run the scripts to start the angle measurement system.
 
-```bash
-python measure_angle.py
-```
+### `angle_15points.py`
+- **Description**: Extracts and measures angles using a 15-point skeleton.
+- **Key Functionality**:
+  - The system detects keypoints of the body (e.g., shoulders, elbows, knees).
+  - It calculates the angles between specific joints.
+  - It displays the joint angles on the video feed.
+- **Exit**:
+  - Press `ESC` or `q` to exit the application.
 
-This will open a window displaying the video feed with the detected human skeleton and calculated joint angles.
+### `angle_25points.py`
+- **Description**: Extracts and measures angles using a 25-point skeleton (higher resolution skeleton).
+- **Key Functionality**:
+  - The system detects 25 keypoints of the body.
+  - It calculates angles for more detailed joint movements compared to the 15-point skeleton.
+  - Displays joint angles on the video feed for advanced analysis.
 
-### Key Functionality:
-- The system detects keypoints of the body (e.g., shoulders, elbows, knees).
-- It calculates the angles between specific joints.
-- It displays the joint angles on the video feed.
+### `angle_estimate_UI_single.py`
+- **Description**: This is a complete program with a **UI interface** for medical testing, specifically designed to check if a person's arm can extend backward (shoulder extension) to a certain angle.
+- **Key Functionality**:
+  - Real-time video input with keypoint detection.
+  - Measures the backward extension angle of the shoulder.
+  - If the arm extends beyond a certain threshold, it indicates a potential issue with shoulder mobility.
+  - The program features a simple UI that provides immediate feedback on whether the angle is within the acceptable range.
+  - **Exit**: Press `ESC` or `q` to exit the application.
 
-### Exit:
-- Press `ESC` or `q` to exit the application.
+### `angle_estimate_UI_3proj.py`
+- **Description**: This is an upgraded version of the medical measurement program, designed to measure and assess three specific arm angles: **shoulder extension**, **shoulder abduction**, and **elbow convergence**.
+- **Key Functionality**:
+  - The system detects the relevant keypoints for shoulder extension, abduction, and elbow convergence.
+  - The measurement process is switched between the three projects by pressing the **space** bar.
+  - After completing all measurements, the program outputs the results for all three projects.
+  - **Exit**: Press `ESC` or `q` to exit the application.
+
+### Exit
+- Press `ESC` or `q` to exit any application.
 
 ## Project Structure
 
 ```plaintext
 joint-angle-measurement/
 ├── README.md                   # This file
-├── measure_angle.py            # Main script for angle measurement and visualization
-├── requirements.txt            # Python dependencies
-└── openpose/                   # OpenPose installation and model files (external dependency)
+├── angle_15points.py           # 15-point skeleton extraction and angle measurement
+├── angle_25points.py           # 25-point skeleton extraction and angle measurement
+├── angle_estimate_UI_single.py # UI-based single-project medical testing (shoulder extension)
+├── angle_estimate_UI_3proj.py  # UI-based multi-project medical testing (shoulder extension, abduction, elbow)
+├── requirements.txt           # Python dependencies
+└── openpose/                  # OpenPose installation and model files (external dependency)
 ```
 
-- **measure_angle.py**: This is the main script that performs the joint angle measurement, visualization, and user interaction.
-- **requirements.txt**: Lists the Python libraries needed for the project.
-- **openpose/**: Contains the necessary OpenPose files (this folder should be set up according to OpenPose's instructions).
+- **`angle_15points.py`**: This script uses a 15-point skeleton model to detect keypoints and measure angles for basic motion analysis.
+- **`angle_25points.py`**: Similar to the 15-point model, but with a 25-point skeleton, providing more detailed keypoint detection for more accurate angle measurements.
+- **`angle_estimate_UI_single.py`**: A program with a UI for medical testing, specifically measuring the backward extension of the arm (shoulder extension).
+- **`angle_estimate_UI_3proj.py`**: An upgraded medical measurement program with three separate tests for shoulder extension, shoulder abduction, and elbow convergence.
+- **`requirements.txt`**: Lists the Python libraries needed for the project.
+- **`openpose/`**: Contains the necessary OpenPose files (this folder should be set up according to OpenPose's instructions).
 
 ## Contributing
 
@@ -114,7 +148,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 ### Notes:
-
-- Ensure that you have the correct version of OpenPose installed, as compatibility issues may arise with different versions of the library.
-- This code assumes you're working with a webcam, but it can be adapted for use with recorded video files or other input devices.
-
+- Ensure that you have the correct version of **OpenPose** installed, as compatibility issues may arise with different versions of the library.
+- This project assumes you're working with a webcam, but it can be adapted for use with recorded video files or other input devices.
+- **Python 3.9** is the supported version for this project. If you're using another version, compatibility may not be guaranteed.
